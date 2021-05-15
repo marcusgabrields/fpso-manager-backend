@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     "test_without_migrations",
     "common",
     "vessels",
+    "equipments",
 ]
 
 MIDDLEWARE = [

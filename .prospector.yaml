@@ -27,6 +27,8 @@ pylint:
   disable:
     - no-self-use
     - no-self-argument
+    - unsubscriptable-object
+    - too-few-public-methods
 
 dodgy:
   run: true

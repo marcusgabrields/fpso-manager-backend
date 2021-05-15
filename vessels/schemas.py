@@ -1,7 +1,12 @@
-from ninja.orm import create_schema
+from uuid import UUID
 
-from .models import Vessel
+from ninja.schema import Schema
 
 
-VesselIn = create_schema(Vessel, fields=["code"])
-VesselOut = create_schema(Vessel, fields=["code"])
+class VesselOut(Schema):
+    id: UUID
+    code: str
+
+
+class VesselIn(Schema):
+    code: str
