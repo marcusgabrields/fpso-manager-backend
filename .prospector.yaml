@@ -18,10 +18,15 @@ pep8:
   full: true
   options:
     max-line-length: 100
+  disable:
+    - N805
 
 pylint:
   options:
     max-line-length: 100
+  disable:
+    - no-self-use
+    - no-self-argument
 
 dodgy:
   run: true
