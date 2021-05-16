@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 from uuid import UUID
 
 from django.db.utils import IntegrityError
@@ -39,7 +39,7 @@ def list_vessel(request):
 
 
 @router.post(
-    "/{vessel_id}/equipaments",
+    "/{vessel_id}/equipments",
     response={201: EquipamentOut, 409: Message},
     summary="Create a Equipament in a Vessel",
 )
@@ -58,3 +58,32 @@ def create_vessel_equipament(request, vessel_id: UUID, payload: EquipamentIn):
         return 201, Equipment.objects.create(**payload.dict())
     except IntegrityError:
         return 409, {"message": "Equipament code should be unique."}
+
+
+@router.get(
+    "/{vessel_id}/equipments",
+    response={200: List[EquipamentOut], 400: Message},
+    summary="List Vessel Equipments",
+)
+def list_vessel_equipament(
+    request,
+    vessel_id: UUID,
+    status: Optional[str] = None,
+):
+    """
+    List **Vessel** **Equipments**.
+
+    Accept filter by status
+    - **status**: Equipament status, should be one of ['active', 'inactive', 'under_maintenance'].
+    """
+    vessel = get_object_or_404(Vessel, id=vessel_id)
+
+    valid_status = [s.value for s in Equipment.Status]
+
+    if status and status not in valid_status:
+        return 400, {"message": f"Status should be one of {valid_status}."}
+
+    if status:
+        return 200, vessel.equipments.filter(status=status)
+
+    return 200, vessel.equipments.all()

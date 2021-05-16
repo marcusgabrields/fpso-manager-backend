@@ -15,6 +15,7 @@ class Equipment(TimeStampedModel):
         on_delete=models.SET_NULL,
         null=True,
         verbose_name=_("vessel"),
+        related_name="equipments",
     )
     name = models.CharField(_("name"), max_length=100)
     code = models.CharField(_("code"), max_length=100, unique=True)
