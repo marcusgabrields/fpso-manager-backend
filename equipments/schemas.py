@@ -1,8 +1,9 @@
-from typing import Optional
+from typing import List, Optional, Union
 from uuid import UUID
 
 from ninja.schema import Schema
 
+from common.schemas import CodeOrUUID
 from vessels.schemas import VesselOut
 
 
@@ -44,3 +45,8 @@ class EquipamentOut(Schema):
                 "status": "active",
             }
         }
+
+
+class SetStatusPayload(Schema):
+    equipments: Union[CodeOrUUID, List[CodeOrUUID]]
+    status: str

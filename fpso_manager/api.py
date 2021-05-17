@@ -1,5 +1,6 @@
 from ninja import NinjaAPI
 
+from equipments.api import router as equipments_router
 from vessels.api import router as vessels_router
 
 
@@ -13,3 +14,4 @@ api = NinjaAPI(
 )
 
 api.add_router("/vessels/", vessels_router, tags=["vessels"])
+api.add_router("/equipments/", equipments_router, tags=["equipments"])
